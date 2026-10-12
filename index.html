@@ -1,0 +1,972 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PUC Medicina 2027: plano de estudo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: uma coluna de leitura (caderno de prova), barra de seções fixa no topo; o treino imita a folha de respostas com bolhas A–D. */
+:root{
+  --paper:#f6f7fb; --sheet:#ffffff; --ink:#1b2333; --muted:#5b6478; --line:#dfe3ec;
+  --blue:#1d4ed8; --blue-soft:#e6ecfd; --mark:#ffe45c; --mark-ink:#3a3000;
+  --ok:#137a45; --ok-soft:#e1f4e9; --bad:#b42318; --bad-soft:#fde8e6;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, "Cascadia Mono", monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#11151f; --sheet:#181d2a; --ink:#e8ebf3; --muted:#a2aabd; --line:#2a3142;
+  --blue:#8aa8ff; --blue-soft:#1d2744; --mark:#e9cf45; --mark-ink:#1b1600;
+  --ok:#5fd394; --ok-soft:#14301f; --bad:#ff8a7d; --bad-soft:#3a1914; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#11151f; --sheet:#181d2a; --ink:#e8ebf3; --muted:#a2aabd; --line:#2a3142;
+  --blue:#8aa8ff; --blue-soft:#1d2744; --mark:#e9cf45; --mark-ink:#1b1600;
+  --ok:#5fd394; --ok-soft:#14301f; --bad:#ff8a7d; --bad-soft:#3a1914; color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--paper);color:var(--ink);font:17px/1.6 var(--body);padding-inline:16px;padding-block:0 64px}
+.wrap{max-width:720px;margin:0 auto}
+h1,h2,h3{font-family:var(--display);line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2rem,7vw,3rem);font-weight:800;letter-spacing:-.02em}
+h2{font-size:1.6rem;font-weight:800;letter-spacing:-.01em}
+h3{font-size:1.15rem;font-weight:600}
+p{margin:0}
+a{color:var(--blue)}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:4px}
+.lbl{font:500 .72rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+mark,.hl{background:linear-gradient(transparent 35%,var(--mark) 35%,var(--mark) 90%,transparent 90%);color:inherit;padding:0 .1em}
+:root[data-theme="dark"] mark, :root[data-theme="dark"] .hl{color:var(--ink)}
+small{font-size:.8em;color:var(--muted)}
+
+/* header */
+header.top{padding-block:28px 20px;display:grid;gap:14px}
+.facts{display:flex;flex-wrap:wrap;gap:8px}
+.fact{font:500 .8rem/1.2 var(--mono);border:1px solid var(--line);background:var(--sheet);border-radius:999px;padding:6px 12px}
+.fact b{color:var(--blue)}
+.lead{color:var(--muted);max-width:60ch}
+
+/* nav */
+nav.sec{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border-bottom:1px solid var(--line);margin-inline:-16px;padding:8px 16px;overflow-x:auto;white-space:nowrap;scrollbar-width:none}
+nav.sec::-webkit-scrollbar{display:none}
+nav.sec a{display:inline-block;font:600 .9rem/1 var(--body);color:var(--ink);text-decoration:none;padding:8px 12px;border-radius:999px}
+nav.sec a:hover{background:var(--blue-soft)}
+
+section{padding-block:36px 8px;display:grid;gap:16px;border-bottom:1px dashed var(--line)}
+section:last-of-type{border-bottom:0}
+.card{background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:10px;min-width:0}
+ul.clean,ol.clean{margin:0;padding-left:1.2em;display:grid;gap:6px}
+
+/* plano */
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:10px;counter-reset:s}
+.steps li{counter-increment:s;display:grid;grid-template-columns:2.2rem 1fr;gap:12px;align-items:start;background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:14px}
+.steps li::before{content:counter(s);font:800 1.3rem/1 var(--display);color:var(--blue);background:var(--blue-soft);border-radius:50%;width:2.2rem;height:2.2rem;display:grid;place-items:center}
+.steps li div{min-width:0;display:grid;gap:4px}
+.when{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+
+/* raio-x */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--sheet)}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{font:500 .72rem/1.2 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+td.n{font:700 1.1rem/1 var(--display);font-variant-numeric:tabular-nums;white-space:nowrap}
+.bar{height:8px;border-radius:4px;background:var(--blue);min-width:4px}
+.barcell{width:28%}
+
+/* matérias */
+details.sub{background:var(--sheet);border:1px solid var(--line);border-radius:12px}
+details.sub>summary{cursor:pointer;list-style:none;padding:14px 16px;display:flex;gap:10px;align-items:baseline;justify-content:space-between}
+details.sub>summary::-webkit-details-marker{display:none}
+details.sub>summary h3{font-size:1.25rem}
+details.sub>summary::after{content:"+";font:800 1.4rem/1 var(--display);color:var(--blue)}
+details.sub[open]>summary::after{content:"–"}
+.subin{padding:0 16px 16px;display:grid;gap:14px}
+.freq{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.freq li{display:grid;grid-template-columns:3.4rem 1fr;gap:10px;align-items:baseline}
+.dots{font:500 .8rem/1 var(--mono);color:var(--blue);letter-spacing:.05em;white-space:nowrap}
+.rules{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.rules li{border-left:3px solid var(--mark);padding:2px 0 2px 12px}
+.note{font-size:.92rem;color:var(--muted)}
+
+/* doenças */
+.dz{display:grid;gap:8px}
+.dz div{display:grid;grid-template-columns:7.5rem 1fr;gap:8px;padding-block:8px;border-bottom:1px solid var(--line)}
+.dz div:last-child{border-bottom:0}
+.dz b{font-family:var(--display)}
+@media (max-width:420px){.dz div{grid-template-columns:1fr;gap:2px}}
+
+/* redação */
+.model{display:grid;gap:8px;counter-reset:p}
+.model p{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.model .lines{font:500 .75rem/1 var(--mono);color:var(--muted);display:block;margin-bottom:4px}
+
+/* treino */
+.score{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.scorebox{font:800 1.5rem/1 var(--display);font-variant-numeric:tabular-nums}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:600 .85rem/1 var(--body);border:1px solid var(--line);background:var(--sheet);color:var(--ink);border-radius:999px;padding:8px 12px;cursor:pointer}
+.chip.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.chip.on small{color:inherit;opacity:.75}
+.btn{font:600 .85rem/1 var(--body);border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:8px;padding:8px 10px;cursor:pointer}
+.q{background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:12px;min-width:0}
+.qh{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.tag{font:500 .7rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:5px 8px;border-radius:6px;background:var(--blue-soft);color:var(--blue)}
+.orig{font:500 .75rem/1 var(--mono);color:var(--muted)}
+.en{font-size:1.02rem}
+.alts{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.alt{width:100%;display:grid;grid-template-columns:2rem 1fr;gap:10px;align-items:start;text-align:left;font:inherit;font-size:.98rem;color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:10px;padding:8px 10px;cursor:pointer}
+.alt:hover{border-color:var(--blue)}
+.bub{width:1.7rem;height:1.7rem;border-radius:50%;border:2px solid var(--muted);display:grid;place-items:center;font:500 .8rem/1 var(--mono);color:var(--muted)}
+.at{min-width:0;padding-top:2px}
+.q.done .alt{cursor:default}
+.alt.right{border-color:var(--ok);background:var(--ok-soft)}
+.alt.right .bub{background:var(--ok);border-color:var(--ok);color:var(--sheet)}
+.alt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.alt.wrong .bub{background:var(--bad);border-color:var(--bad);color:var(--sheet)}
+details.ans summary{cursor:pointer;font-weight:700;color:var(--blue)}
+details.ans p{margin-top:8px}
+.gab{display:block;font-family:var(--display);margin-bottom:2px}
+.q[hidden]{display:none}
+
+/* áudio */
+.aud{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.aud li{background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;gap:8px}
+.an{font-weight:700}
+audio{width:100%}
+footer{padding-block:32px 0;color:var(--muted);font-size:.85rem;display:grid;gap:6px}
+.dl{font:500 .75rem/1 var(--mono);margin-left:8px}
+[hidden]{display:none!important}
+body{margin:0}
+</style></head><body>
+
+<div class="wrap">
+<header class="top">
+  <p class="lbl">Vestibular Medicina · PUC Minas Betim · 1º semestre de 2027</p>
+  <h1>O que cai na PUC e como estudar até sábado</h1>
+  <div class="facts">
+    <span class="fact">Prova <b>sáb 17/10</b>, 13h–17h</span>
+    <span class="fact">50 questões + redação</span>
+    <span class="fact">54 vagas em Betim</span>
+    <span class="fact">FCM-MG no <b>dom 18/10</b></span>
+  </div>
+  <p class="lead">Feito a partir do edital 071/2026 e das 10 provas de Medicina publicadas pela PUC (2021 a 2026), lidas questão por questão. A prova mudou de cara a partir de 2024: ficou mais curta nas exatas e mais voltada para saúde pública. Por isso as contagens abaixo usam as <b>6 provas mais recentes</b> (2024.1 a 2026.2).</p>
+</header>
+
+<nav class="sec" aria-label="Seções">
+  <a href="#plano">Plano</a><a href="#raio">Raio-X</a><a href="#materias">Matérias</a><a href="#redacao">Redação</a><a href="#treino">Treino</a><a href="#carro">Áudios</a><a href="#diad">Dia da prova</a>
+</nav>
+
+<!-- PLANO -->
+<section id="plano">
+  <p class="lbl">Plano</p>
+  <h2>Ordem de prioridade até sábado</h2>
+  <p>São poucos dias e parte deles na estrada. A ordem abaixo vem do peso de cada parte na prova e do que mais se repete. Faça de cima para baixo e pare onde o tempo acabar.</p>
+  <ol class="steps">
+    <li><div><h3>Escrever uma redação à mão (50 min)</h3><p>Use a proposta de 2026.2 (redes sociais e saúde mental, descrita em <a href="#redacao">Redação</a>). Ela é eliminatória: nota abaixo de 1 de 10 tira da disputa. O mesmo treino serve para a FCM no domingo.</p></div></li>
+    <li><div><h3>Biologia das doenças (30 min)</h3><p>A tabela de agente, vetor e prevenção em <a href="#m-bio">Biologia</a>. É o assunto que mais cai: de 2 a 4 das 10 questões em toda prova recente, e costumam ser fáceis.</p></div></li>
+    <li><div><h3>Química: 6 regras de bolso + 19 questões (1h)</h3><p>Ponto de ebulição, destilação, pilha, entalpia de ligação, Le Chatelier e cinética. Termoquímica caiu nas 6 provas recentes.</p></div></li>
+    <li><div><h3>Português: as pegadinhas + 11 questões (1h)</h3><p>São 15 questões, quase um terço da prova, e Português é o primeiro critério de desempate.</p></div></li>
+    <li><div><h3>Física e Matemática (1h)</h3><p>São só 5 de cada. Decore as poucas fórmulas listadas e faça as 18 questões do treino.</p></div></li>
+    <li><div><h3>Se tiver 4 horas paradas: uma prova inteira</h3><p>Imprima ou abra no celular a <a href="https://www.pucminas.br/formas-ingresso/vestibular/Documents/2026/Caderno2026Medicina.pdf">prova 2026.1</a> e faça cronometrado, com a redação. Gabarito oficial <a href="https://www.pucminas.br/formas-ingresso/vestibular/Documents/2026/GABARITOOFICIAL2026.pdf">aqui</a>. (Boa parte da 2026.2 já está no treino desta página.)</p></div></li>
+  </ol>
+  <div class="when">
+    <div class="card"><p class="lbl">No carro</p><p>Ler no carro dá enjoo. Use os <a href="#carro">áudios</a> (cerca de 1h no total) e, se alguém for junto, o <b>modo carona</b>: a pessoa lê a questão do treino em voz alta e ela responde.</p></div>
+    <div class="card"><p class="lbl">Sexta à noite</p><p>Nada novo. Releia as regras de bolso marcadas em amarelo e o modelo da redação. Separe documento, caneta e cartão de inscrição. Dormir cedo vale mais que uma hora a mais de estudo.</p></div>
+  </div>
+</section>
+
+<!-- RAIO-X -->
+<section id="raio">
+  <p class="lbl">Raio-X</p>
+  <h2>A prova em números</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Parte</th><th>Questões</th><th class="barcell">Peso</th><th>Cara da prova</th></tr></thead>
+    <tbody>
+      <tr><td>Português</td><td class="n">15</td><td class="barcell"><div class="bar" style="width:100%"></div></td><td>Interpretação de 2 ou 3 textos longos + gramática aplicada ao texto</td></tr>
+      <tr><td>Biologia</td><td class="n">10</td><td class="barcell"><div class="bar" style="width:66%"></div></td><td>Saúde pública e doenças; questões curtas e diretas</td></tr>
+      <tr><td>Química</td><td class="n">10</td><td class="barcell"><div class="bar" style="width:66%"></div></td><td>Físico-química conceitual; contas pequenas, sem calculadora</td></tr>
+      <tr><td>Física</td><td class="n">5</td><td class="barcell"><div class="bar" style="width:33%"></div></td><td>Texto longo de contexto, pergunta conceitual</td></tr>
+      <tr><td>Matemática</td><td class="n">5</td><td class="barcell"><div class="bar" style="width:33%"></div></td><td>Problemas do cotidiano: porcentagem, áreas, funções</td></tr>
+      <tr><td>Inglês <small>ou Espanhol</small></td><td class="n">5</td><td class="barcell"><div class="bar" style="width:33%"></div></td><td>Um texto só; as 5 perguntas têm sempre os mesmos formatos</td></tr>
+      <tr><td>Redação</td><td class="n">10 pts</td><td class="barcell"><div class="bar" style="width:66%"></div></td><td>Artigo de opinião, 20 a 30 linhas. Eliminatória abaixo de 1 ponto</td></tr>
+    </tbody>
+  </table></div>
+  <div class="card">
+    <h3>Três coisas do edital que mudam a estratégia</h3>
+    <ul class="clean">
+      <li><b>Desempate</b>: primeiro a soma <mark>Português + Biologia</mark>, depois Português + Química, depois Biologia sozinha. Português e Biologia valem mais do que o número de questões sugere.</li>
+      <li><b>4 horas no total</b>, já contando passar a redação a limpo e marcar o gabarito. Sem calculadora, sem régua de cálculo, sem tabelas. Celular e relógio digital no bolso, mesmo desligados, eliminam.</li>
+      <li>O edital não diz quanto vale cada questão objetiva. A redação vale 10 pontos.</li>
+    </ul>
+  </div>
+  <p class="note">Escolha da língua: Inglês ou Espanhol, marcado na hora da prova. Este guia trabalha Inglês porque é o que a FCM-MG cobra no domingo.</p>
+</section>
+
+<!-- MATÉRIAS -->
+<section id="materias">
+  <p class="lbl">Matérias</p>
+  <h2>O que se repete em cada uma</h2>
+  <p class="note">Os pontos mostram em quantas das 6 provas recentes o assunto apareceu (●●●●●● = em todas). As regras de bolso são o mínimo para acertar as questões típicas.</p>
+
+  <details class="sub" id="m-port" open><summary><h3>Português <small>15 questões</small></h3></summary><div class="subin">
+    <ul class="freq">
+      <li><span class="dots">●●●●●●</span><span><b>Interpretação</b>: tese central, inferência, “o autor afirma, EXCETO”. Cerca de 7 por prova.</span></li>
+      <li><span class="dots">●●●●●●</span><span><b>Tipo e gênero textual</b>: crônica, artigo de opinião, ensaio, notícia; bula e propaganda são injuntivas.</span></li>
+      <li><span class="dots">●●●●●○</span><span><b>Estratégias argumentativas, EXCETO</b>: outras vozes (citação), perguntas retóricas, dados estatísticos, exemplos.</span></li>
+      <li><span class="dots">●●●●●○</span><span><b>Intertextualidade, humor, tirinha, figuras</b>: metáfora, polissemia, ambiguidade.</span></li>
+      <li><span class="dots">●●●○○○</span><span>Sujeito e topicalização · concordância · pontuação · conectivos · tempos verbais · formação de palavras · sinônimos (o INCORRETO) · leitura de gráfico</span></li>
+      <li><span class="dots">●●●○○○</span><span><b>Variação e preconceito linguístico</b> (Marcos Bagno aparece de novo e de novo). Resposta da banca: nenhuma variedade é “errada”; existe adequação à situação.</span></li>
+    </ul>
+    <ul class="rules">
+      <li>Termo no começo da frase <mark>não é sujeito só por estar no começo</mark>. Pergunte: quem faz a ação e concorda com o verbo? “Cerveja, só tomo no fim de semana” tem sujeito “eu”.</li>
+      <li>Sujeito depois do verbo também concorda: <i>Choveram críticas</i>, <i>Chegou a conta</i>. Adjetivo antes de dois substantivos no plural vai para o plural: <i>vi ancorados os navios</i>.</li>
+      <li><b>Para + infinitivo</b> = finalidade · <b>de modo que</b> = consequência · <b>porque / já que</b> = causa · <b>se / caso</b> = condição · <b>embora / mesmo que</b> = concessão.</li>
+      <li><b>Mim / eu</b>: se o pronome é sujeito do infinitivo, é <i>eu</i> (“para eu fazer”). Depois de preposição sem verbo, é <i>mim</i> (“entre ele e mim”).</li>
+      <li><b>Crase</b>: só antes de palavra feminina que aceita artigo. Nunca antes de plural sem “s” no a (“graças a vacinas”), nem em objeto direto. Hora: <i>das 8h às 17h</i> ou <i>de 8h a 17h</i>.</li>
+      <li>Pretérito <b>imperfeito</b> (andava, fazia) = cenário, hábito, segundo plano. <b>Perfeito</b> (andou, fez) = ação pontual que faz a história andar.</li>
+      <li>Quando a questão pergunta o EXCETO ou o INCORRETO, marque mentalmente V ou F em cada alternativa antes de escolher.</li>
+    </ul>
+    <p class="note">Não há livro de literatura indicado. Poemas aparecem como texto para interpretar (Vinicius de Moraes, Oswald de Andrade, Manoel de Barros). O programa oficial diz que não avalia “memorização de regras gramaticais”, e sim a compreensão do fenômeno no texto.</p>
+  </div></details>
+
+  <details class="sub" id="m-bio"><summary><h3>Biologia <small>10 questões</small></h3></summary><div class="subin">
+    <ul class="freq">
+      <li><span class="dots">●●●●●●</span><span><b>Doenças, vetores, vacinas, saúde pública</b>: de 2 a 4 por prova. Muitas vêm com notícia da Fiocruz, Funed, Butantan ou Ministério da Saúde.</span></li>
+      <li><span class="dots">●●●●●●</span><span><b>Ecologia e sustentabilidade</b>: biomas, ciclos (nitrogênio, fósforo), agricultura regenerativa, Embrapa. Cerca de 2.</span></li>
+      <li><span class="dots">●●●●●●</span><span><b>Corpo humano</b>: tecidos, vitaminas, hormônios, hábitos saudáveis, câncer e tabagismo.</span></li>
+      <li><span class="dots">●●●●●○</span><span><b>Botânica</b>: tecidos vegetais, hormônios vegetais, grupos de plantas, fotossíntese.</span></li>
+      <li><span class="dots">●●●●○○</span><span><b>Genética</b> (heredograma, probabilidade, epistasia) · <b>Zoologia</b> (filos, moluscos, cnidários) · <b>Célula</b> (respiração, organelas)</span></li>
+    </ul>
+    <h3>Tabela das doenças</h3>
+    <div class="dz">
+      <div><b>Vírus</b><span>Dengue, zika, chikungunya e febre amarela urbana (mosquito <i>Aedes aegypti</i>, água parada). Covid, gripe, sarampo, rubéola, HPV, HIV, hepatites, raiva.</span></div>
+      <div><b>Bactérias</b><span>Hanseníase (<i>M. leprae</i>: manchas com perda de sensibilidade; tem cura). Tuberculose (vacina BCG). Cólera (água contaminada). Sífilis. Coqueluche (vacina DTP). Meningite meningocócica (vacina Meningo C, produzida pela Funed). Leptospirose (urina de rato, enchente).</span></div>
+      <div><b>Protozoários</b><span>Malária (<i>Plasmodium</i>; fêmea do <i>Anopheles</i>; ciclo no mosquito e no humano). Chagas (<i>Trypanosoma cruzi</i>; barbeiro, pelas fezes; também via açaí ou caldo de cana; ataca coração e tubo digestivo). Leishmaniose (<i>Leishmania</i>; mosquito-palha ou birigui; forma cutânea ou visceral; cão é reservatório). Toxoplasmose (fezes de gato, carne crua; risco na gravidez). Giardíase e amebíase (água e alimentos).</span></div>
+      <div><b>Vermes</b><span>Esquistossomose (<i>Schistosoma</i>; caramujo <i>Biomphalaria</i>; larva entra pela pele em água doce; “barriga d’água”). Lombriga e solitária (alimento e água contaminados).</span></div>
+      <div><b>Vacina × soro</b><span>Vacina = imunidade ativa, prevenção, demora a fazer efeito. Soro (antiveneno, Butantan) = anticorpos prontos, imunidade passiva, uso emergencial.</span></div>
+    </div>
+    <ul class="rules">
+      <li>A pegadinha preferida: <mark>hanseníase no meio dos protozoários</mark> e sintomas trocados entre Chagas, hanseníase e leishmaniose. Apareceu em 3 das 4 últimas provas.</li>
+      <li>Saneamento e lixo: tirar água parada derruba as doenças do <i>Aedes</i>. Esgoto tratado derruba cólera, hepatite A, giardíase, amebíase e esquistossomose.</li>
+      <li>Hormônios: crescimento (GH) = hipófise · insulina = pâncreas · T3 e T4 = tireoide · adrenalina e cortisol = adrenal.</li>
+      <li>Músculo esquelético = voluntário · cardíaco = estriado e involuntário · liso = vísceras, involuntário.</li>
+      <li>Plantas: colênquima (vivo, flexível) × esclerênquima (morto, rígido) · xilema = água e sais · floema = seiva com açúcar · auxina = crescimento do caule.</li>
+      <li>Genética: casal normal com filho afetado = Aa × Aa. Filho portador = 1/2; afetado = 1/4. “Menina e …” multiplica por 1/2.</li>
+      <li>Ciclo do nitrogênio: bactéria da raiz da leguminosa transforma N₂ do ar = <b>fixação</b>. O fósforo não tem fase gasosa.</li>
+      <li>Vitaminas: A = visão (cegueira noturna) · C = escorbuto, frutas cítricas · D = ossos, sol · K = coagulação · B12 = anemia.</li>
+    </ul>
+  </div></details>
+
+  <details class="sub" id="m-quim"><summary><h3>Química <small>10 questões</small></h3></summary><div class="subin">
+    <ul class="freq">
+      <li><span class="dots">●●●●●●</span><span><b>Forças intermoleculares</b>, ponto de ebulição, solubilidade, pressão de vapor.</span></li>
+      <li><span class="dots">●●●●●●</span><span><b>Termoquímica</b>: entalpia de ligação, Lei de Hess, calorimetria.</span></li>
+      <li><span class="dots">●●●●●●</span><span><b>Orgânica</b>: isomeria (cis/trans, óptica), funções, ligações π, polímeros. 1 ou 2 por prova.</span></li>
+      <li><span class="dots">●●●●●○</span><span><b>Eletroquímica</b>: pilha, eletrólise, Nox · <b>Estequiometria</b>: mol, concentração, gases.</span></li>
+      <li><span class="dots">●●●●○○</span><span><b>Destilação</b> e vidraria.</span></li>
+      <li><span class="dots">●●●○○○</span><span>Equilíbrio (Le Chatelier) · cinética · diagrama de fases.</span></li>
+    </ul>
+    <ul class="rules">
+      <li><b>Ponto de ebulição</b>: ligação de hidrogênio (H ligado a F, O ou N) &gt; dipolo &gt; London. Com a mesma força, molécula maior ferve mais alto; cadeia ramificada ferve mais baixo que a normal.</li>
+      <li><b>Destilação</b>: <mark>sai primeiro o mais volátil</mark> (forças fracas, PE menor, pressão de vapor maior). O termômetro na saída mostra o PE do que está saindo.</li>
+      <li>Pressão de vapor depende só do líquido e da temperatura. Liquefazer um gás: esfriar e aumentar a pressão.</li>
+      <li><b>Pilha</b>: quem tem maior E° de redução é o cátodo (reduz, ganha massa, polo +). O outro é o ânodo (oxida, perde massa, polo −). Elétrons andam do ânodo para o cátodo. ddp = E° maior − E° menor. Oxidante = quem se reduz.</li>
+      <li><b>Oxidação</b> = Nox sobe. <b>Redução</b> = Nox desce.</li>
+      <li><b>Entalpia de ligação</b>: ΔH = (ligações quebradas) − (ligações formadas). ΔH negativo = exotérmica. Hess: inverteu a equação, troca o sinal; multiplicou, multiplica o ΔH. Calorimetria: Q = m·c·ΔT.</li>
+      <li><b>Le Chatelier</b>: adicionou algo, o equilíbrio anda para o outro lado. Aumentou a pressão (ou diminuiu o volume), vai para o lado com menos mols de gás. Aqueceu, favorece o sentido endotérmico. Catalisador não desloca.</li>
+      <li><b>Cinética</b>: temperatura, superfície de contato, concentração e catalisador aceleram. Na lei v = k[A]²[B], dividir [A] por 2 divide v por 4.</li>
+      <li>Gases na mesma T e P: volume segue o coeficiente da equação (N₂ + 3H₂ → 2NH₃). Íons em solução: Na₂CO₃ libera 3 íons por fórmula.</li>
+      <li>Isomeria geométrica precisa de dupla (ou anel) com dois ligantes diferentes em cada carbono. Óptica precisa de carbono com 4 ligantes diferentes. Dupla = 1 π; tripla = 2 π.</li>
+      <li>Ácido + metal libera H₂; ácido + carbonato libera CO₂. Brønsted: ácido doa H⁺, base recebe; par conjugado difere de um H⁺.</li>
+    </ul>
+  </div></details>
+
+  <details class="sub" id="m-fis"><summary><h3>Física <small>5 questões</small></h3></summary><div class="subin">
+    <ul class="freq">
+      <li><span class="dots">●●●●●●</span><span><b>Gravitação e astronomia</b>: Kepler, órbitas, ausência de peso, gravidade dentro da Terra, luas de Júpiter.</span></li>
+      <li><span class="dots">●●●●●○</span><span><b>Ondas, luz e espectro</b>: cor, refração, infravermelho, UV, raios X, redshift.</span></li>
+      <li><span class="dots">●●●●●○</span><span><b>Calor</b>: calorimetria, mudança de fase, condução, convecção e radiação · <b>Eletromagnetismo</b>: indução, efeito Joule.</span></li>
+      <li><span class="dots">●●●○○○</span><span>Energia mecânica e potência · inércia e referenciais.</span></li>
+    </ul>
+    <ul class="rules">
+      <li>“Ausência de peso” = <mark>queda livre</mark>. Na estação espacial a gravidade ainda é cerca de 90% da da superfície.</li>
+      <li>Inércia: o corpo mantém a velocidade. O carro freia e você vai para frente; acelera e você vai para trás; faz curva e você escorrega para fora.</li>
+      <li>Gravitação: F = G·M·m/d². Dobrou uma massa, F dobra; dobrou a distância, F cai para 1/4. Kepler: órbita elíptica, mais rápido perto do Sol.</li>
+      <li>Energia: Ep = m·g·h · Ec = m·v²/2 · altura máxima h = v²/2g · Potência = energia/tempo. Rendimento real nunca é 100%.</li>
+      <li><b>Indução</b> (Faraday) precisa de campo magnético <b>variável</b>: gerador de hidrelétrica, carregador sem fio, fogão de indução.</li>
+      <li>A cor de um objeto é a luz que ele <b>não</b> absorve. Espectro em ordem de energia: rádio &lt; micro-ondas &lt; infravermelho &lt; vermelho … violeta &lt; UV &lt; raio X &lt; gama. Frequência maior = comprimento menor = mais energia (E = h·f). Do UV para cima, ioniza.</li>
+      <li>Calor: Q = m·c·ΔT (sem mudar de fase) e Q = m·L (mudando de fase; gelo derrete com 80 cal/g). Evaporar resfria (álcool na mão). Joule: P = U·i = U²/R.</li>
+    </ul>
+  </div></details>
+
+  <details class="sub" id="m-mat"><summary><h3>Matemática <small>5 questões</small></h3></summary><div class="subin">
+    <ul class="freq">
+      <li><span class="dots">●●●●●●</span><span><b>Porcentagem, descontos, juros, cashback</b>.</span></li>
+      <li><span class="dots">●●●●●●</span><span><b>Geometria plana</b>: áreas, triângulos especiais, semelhança.</span></li>
+      <li><span class="dots">●●●●○○</span><span><b>Exponencial e log</b>: decaimento, crescimento populacional, risco de doença.</span></li>
+      <li><span class="dots">●●●○○○</span><span>Função do 2º grau (máximo e lucro) · reta e circunferência · média ponderada.</span></li>
+    </ul>
+    <ul class="rules">
+      <li>Descontos sucessivos <mark>se multiplicam</mark>: 20% e depois 10% = × 0,8 × 0,9 = × 0,72 (28%, não 30%). Aumento de 15% = × 1,15.</li>
+      <li>Juros compostos: M = C·(1 + i)ᵗ. A ordem das taxas não muda o resultado.</li>
+      <li>Lados × k: perímetro × k, área × k², volume × k³.</li>
+      <li>Triângulo 30-60-90: lados x, x√3, 2x. Triângulo 45-45-90: x, x, x√2. Equilátero: área = L²√3/4, altura = L√3/2.</li>
+      <li>Parábola: o vértice fica no meio das raízes, x = −b/2a. Lucro = (preço − custo) × quantidade.</li>
+      <li>Perde 10% ao ano = × 0,9 a cada ano. log: 10ˣ = y ⇔ x = log y. Soma das raízes = −b/a.</li>
+      <li>Retas paralelas têm a mesma inclinação; perpendiculares têm m₁·m₂ = −1. Circunferência: (x − a)² + (y − b)² = r².</li>
+      <li>Antes de calcular, converta tudo para a mesma unidade (1 km² = 10⁶ m²).</li>
+    </ul>
+  </div></details>
+
+  <details class="sub" id="m-ing"><summary><h3>Inglês <small>5 questões</small></h3></summary><div class="subin">
+    <p>Um texto só (Guardian, BBC e similares, sobre saúde, tecnologia ou sociedade). Em todas as provas lidas, as 5 perguntas foram destes tipos:</p>
+    <ul class="freq">
+      <li><span class="dots">●●●●●●</span><span><b>Referência</b>: “What does <i>it / its / which / that / this / their</i> refer to?” Volte uma ou duas frases e ache o substantivo.</span></li>
+      <li><span class="dots">●●●●●●</span><span><b>Conectivo ou modal</b>: “What does <i>however / so / can / should</i> indicate?”</span></li>
+      <li><span class="dots">●●●●●●</span><span><b>Ideia principal</b> e <b>frase correta segundo o texto</b>. Desconfie das alternativas com always, never, all, definitely.</span></li>
+    </ul>
+    <ul class="rules">
+      <li><b>Addition</b>: moreover, furthermore, besides, also, in addition</li>
+      <li><b>Contrast</b>: however, yet, but, although, despite, nevertheless, whereas</li>
+      <li><b>Cause</b>: because, since, as, due to, for · <b>Conclusion</b>: so, therefore, thus, hence</li>
+      <li><b>Purpose</b>: to + verbo, in order to, so that · <b>Example</b>: such as, for instance, like</li>
+      <li><b>Possibility</b>: can, may, might, could · <b>Certainty</b>: will · <b>Suggestion</b>: should · <b>Obligation</b>: must, have to</li>
+    </ul>
+  </div></details>
+</section>
+
+<!-- REDAÇÃO -->
+<section id="redacao">
+  <p class="lbl">Redação · 10 pontos · eliminatória</p>
+  <h2>A redação usa o texto da própria prova</h2>
+  <p>Em 2025.2, 2026.1 e 2026.2, a proposta mandou usar <mark>um dos textos da prova de Português</mark> junto com um texto novo. Ler com atenção os textos das questões de Português já é preparação para a redação.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Prova</th><th>Tema</th><th>Formato pedido</th></tr></thead>
+    <tbody>
+      <tr><td>2026.2</td><td>Como conviver com as redes sociais e preservar a saúde mental de crianças e adolescentes?</td><td>Artigo de opinião</td></tr>
+      <tr><td>2026.1</td><td>Xenofobia: causas, consequências e como combatê-la</td><td>Artigo de opinião, como cidadão, jornal da cidade</td></tr>
+      <tr><td>2025.2</td><td>Etarismo: valores e o papel de políticas públicas, saúde e educação</td><td>Dissertativo-argumentativo</td></tr>
+      <tr><td>2025.1</td><td>O papel da faculdade diante da crise ambiental</td><td>Artigo de opinião, jornal da faculdade</td></tr>
+      <tr><td>2024.2</td><td>Dengue como questão de saúde, economia e sociedade</td><td>Artigo de opinião, jornal da cidade</td></tr>
+      <tr><td>2024.1</td><td>Por que a vida num centro urbano afeta a saúde individual e coletiva?</td><td>Dissertativo-argumentativo, jornal do curso</td></tr>
+      <tr><td>2023.2</td><td>Fake news em saúde e suas consequências</td><td>Artigo de opinião, jornal do curso</td></tr>
+      <tr><td>2023.1</td><td>Ensino da norma-padrão na escola: como e por quê</td><td>Dissertativo-argumentativo</td></tr>
+      <tr><td>2022.2</td><td>A história humana é cíclica ou linear? (guerra e armamento)</td><td>Texto argumentativo</td></tr>
+      <tr><td>2021.2</td><td>Formação do médico: técnica ou humanismo?</td><td>Texto argumentativo, jornal do curso</td></tr>
+    </tbody>
+  </table></div>
+  <div class="card">
+    <h3>Regras que aparecem em toda proposta</h3>
+    <ul class="clean">
+      <li><b>20 a 30 linhas</b>, à caneta, letra legível.</li>
+      <li><b>Dê um título</b>. Está escrito em quase todas as propostas.</li>
+      <li><b>Não copie trechos</b> dos textos de apoio: “a cópia resultará em anulação”.</li>
+      <li>Quando a proposta faz uma pergunta, a tese precisa <b>responder essa pergunta</b> logo no primeiro parágrafo.</li>
+      <li>Se pedir para se posicionar “como estudante” ou “como cidadão”, escreva na 1ª pessoa do plural (“precisamos”, “nossa cidade”).</li>
+    </ul>
+  </div>
+  <h3>Modelo de 4 parágrafos (cabe em 25 linhas)</h3>
+  <div class="model">
+    <p><span class="lines">Título · 1 linha</span>Curto e com posição. Exemplo: “Telas com limite, infância com futuro”.</p>
+    <p><span class="lines">§1 · 5–6 linhas</span>Contexto em uma frase (um fato ou dado dos textos, com suas palavras) + <b>tese</b> que responde à pergunta da proposta + os dois motivos que você vai desenvolver.</p>
+    <p><span class="lines">§2 · 6–7 linhas</span>Primeiro motivo. Afirme, explique e prove com um exemplo, dado ou voz de especialista. Feche ligando de volta à tese.</p>
+    <p><span class="lines">§3 · 6–7 linhas</span>Segundo motivo, de outro ângulo: se o §2 foi saúde, este é social, econômico ou educacional. Use um conector de virada (“além disso”, “por outro lado”).</p>
+    <p><span class="lines">§4 · 5–6 linhas</span>Conclusão com proposta concreta: <b>quem</b> faz (escola, SUS, família, governo), <b>o quê</b>, <b>como</b> e <b>para quê</b>. Retome a ideia do título na última frase.</p>
+  </div>
+  <div class="card">
+    <h3>Temas possíveis para 2027</h3>
+    <p class="note">Estes são palpites a partir do padrão das provas, não informação da PUC. Quase todos os temas recentes ligam saúde a um problema social atual.</p>
+    <ul class="clean">
+      <li>Calor extremo, clima e saúde (o texto de Inglês de 2026.2 já foi sobre isso)</li>
+      <li>Inteligência artificial na saúde e na educação</li>
+      <li>Queda da vacinação e desinformação</li>
+      <li>Apostas on-line (bets) e saúde mental (já apareceu na Biologia de 2026.1)</li>
+      <li>Envelhecimento da população e cuidado com o idoso</li>
+      <li>Violência contra a mulher, saúde da população negra ou indígena (a crise Yanomami caiu em 2024.1)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- TREINO -->
+<section id="treino">
+  <p class="lbl">Treino · 72 questões reais com o gabarito oficial</p>
+  <h2>Questões de provas anteriores</h2>
+  <p>Toque numa alternativa para marcar. A página mostra se acertou e a explicação. As questões vieram das provas de Medicina da PUC, sem figuras, com o enunciado às vezes encurtado. O placar fica salvo neste aparelho.</p>
+  <div class="card score">
+    <div><p class="lbl">Acertos</p><p class="scorebox" id="score">0 de 0</p></div>
+    <button type="button" class="btn" id="reset">Zerar placar</button>
+  </div>
+  <div class="chips" role="group" aria-label="Filtrar por matéria"><button type="button" class="chip on" data-f="all">Todas <small>72</small></button><button type="button" class="chip" data-f="port">Português <small>11</small></button><button type="button" class="chip" data-f="bio">Biologia <small>14</small></button><button type="button" class="chip" data-f="quim">Química <small>19</small></button><button type="button" class="chip" data-f="fis">Física <small>7</small></button><button type="button" class="chip" data-f="mat">Matemática <small>11</small></button><button type="button" class="chip" data-f="ing">Inglês <small>10</small></button></div>
+  <div id="qs" style="display:grid;gap:12px">
+<article class="q" id="q1" data-m="port" data-c="A">
+<p class="qh"><span class="tag t-port">Português</span><span class="orig">PUC 2026.2 · Q03</span></p>
+<p class="en">Pelos exemplos do texto (“Não há nada errado em <b>eu</b> fazer isso”), os pronomes estão de acordo com a norma-padrão, EXCETO em:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">Acabou todo amor que existia entre ele e eu.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">Ela pediu para eu ir lá.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">Para mim, ler é uma tortura.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">Sem mim, ele não faz nada...</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: A</b> Depois de preposição, sem verbo no infinitivo logo adiante, vai <b>mim</b>: “entre ele e mim”. Em “para eu ir”, o <b>eu</b> é sujeito do infinitivo.</p></details>
+</article>
+<article class="q" id="q2" data-m="port" data-c="C">
+<p class="qh"><span class="tag t-port">Português</span><span class="orig">PUC 2026.2 · Q06</span></p>
+<p class="en">Assinale a alternativa em que NÃO há correspondência correta entre as palavras e a justificativa do acento:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">“Comentários” e “prestígio”: paroxítonas terminadas em ditongo crescente.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">“Linguístico” e “gramática”: proparoxítonas.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">“Juízo” e “oblíquo”: acentuadas porque o “i” forma hiato.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">“Açúcar” e “caráter”: paroxítonas terminadas em “r”.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: C</b> “Juízo” leva acento pelo hiato, mas “oblíquo” é paroxítona terminada em ditongo crescente (-quo). Uma palavra certa e outra errada derruba a alternativa.</p></details>
+</article>
+<article class="q" id="q3" data-m="port" data-c="A">
+<p class="qh"><span class="tag t-port">Português</span><span class="orig">PUC 2026.1 · Q14</span></p>
+<p class="en">Sujeito controla a concordância com o verbo. Assinale a alternativa em que a parte destacada é sujeito da oração:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">Chegou <u>a conta atrasada</u>.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at"><u>Essa janela</u> venta muito.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at"><u>Essa sala</u> não gosto dos meninos dela.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at"><u>Este cheiro</u>, não quero sentir.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: A</b> “A conta atrasada chegou”: sujeito posposto. Nas outras, o termo foi jogado para o começo da frase (tópico), mas quem concorda com o verbo é outro (ou não há sujeito: “venta”).</p></details>
+</article>
+<article class="q" id="q4" data-m="port" data-c="C">
+<p class="qh"><span class="tag t-port">Português</span><span class="orig">PUC 2025.1 · Q11</span></p>
+<p class="en">Assinale a alternativa em que a palavra sublinhada funciona como sujeito gramatical da oração:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at"><u>Cerveja</u> só tomo aos finais de semana.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at"><u>Do Silva</u> só conheço o nome.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at"><u>Lucas</u> tomou muita cerveja.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at"><u>O Samuel</u>, os próprios irmãos não aguentam.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: C</b> Pegadinha favorita da banca: termo no início da frase não é sujeito por estar no início. Teste: quem pratica a ação e concorda com o verbo? “(Eu) tomo cerveja”; “os irmãos não aguentam o Samuel”.</p></details>
+</article>
+<article class="q" id="q5" data-m="port" data-c="B">
+<p class="qh"><span class="tag t-port">Português</span><span class="orig">PUC 2025.1 · Q14</span></p>
+<p class="en">“O sujeito agente é aquele que pratica a ação verbal em orações de voz ativa ou reflexiva.” Em qual alternativa temos um sujeito agente?</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">A chegada da polícia acalma a multidão.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">A polícia prendeu a multidão.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">Anita ama seu pai, mas não gosta da madrasta.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">Os cacetetes da polícia espalharam as pessoas.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: B</b> “A chegada” é causa, “Anita” sente (não age), “os cacetetes” são instrumento. Só “a polícia” pratica a ação.</p></details>
+</article>
+<article class="q" id="q6" data-m="port" data-c="A">
+<p class="qh"><span class="tag t-port">Português</span><span class="orig">PUC 2025.2 · Q13</span></p>
+<p class="en">NÃO há problema de concordância somente em:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">Choveram críticas ao político e à atriz.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">Estávamos sem luz no prédio, mas, quando ela voltou, tornou visível os quadros das paredes.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">O escritor já tem quase pronto seus dois novos livros.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">Vi ancorado na baía os navios petrolíferos.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: A</b> “Críticas choveram”: verbo no plural concordando com o sujeito posposto. Corrija as outras: tornou <b>visíveis</b> os quadros; quase <b>prontos</b> seus livros; vi <b>ancorados</b> os navios.</p></details>
+</article>
+<article class="q" id="q7" data-m="port" data-c="A">
+<p class="qh"><span class="tag t-port">Português</span><span class="orig">PUC 2026.1 · Q05</span></p>
+<p class="en">Sobre o uso de pontuação, estão corretas as justificativas, EXCETO em:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">“faz com que seja muito difícil, quando não impossível, responsabilizar o produtor” → as duas vírgulas separam um aposto, esclarecendo o termo anterior.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">“Em um mundo cada vez mais conectado, o deslocamento humano é constante” → a vírgula separa um constituinte que, na ordem neutra, estaria no final.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">“intolerância religiosa, racismo, LGBTfobia, misoginia e neonazismo” → vírgulas separam palavras da mesma categoria.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">“Xenofobia: o ódio que divide o tecido social...” → dois-pontos porque o título é seguido de uma expansão do tema.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: A</b> Aposto explica um substantivo. “Quando não impossível” é uma expressão intercalada que modifica “difícil”.</p></details>
+</article>
+<article class="q" id="q8" data-m="port" data-c="A">
+<p class="qh"><span class="tag t-port">Português</span><span class="orig">PUC 2025.2 · Q15</span></p>
+<p class="en">Assinale a opção em que o valor semântico do conector foi apontado INCORRETAMENTE:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">“...que enviara um portador <b>para</b> entregar o dinheiro e levar o sofá.” (consequência)</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">“<b>De modo que</b> ele ficou muito surpreso quando...” (consequência)</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">“O marido não acreditava. <b>Porque</b> a mulher não tinha jeito para negociar.” (causa)</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">“<b>Se</b> dependesse de sua habilidade para a venda, o sofá permaneceria no living...” (condição)</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: A</b> “Para + infinitivo” indica <b>finalidade</b>. Decore o trio: para = finalidade, de modo que = consequência, porque = causa.</p></details>
+</article>
+<article class="q" id="q9" data-m="port" data-c="C">
+<p class="qh"><span class="tag t-port">Português</span><span class="orig">PUC 2025.2 · Q09</span></p>
+<p class="en">Assinale a única opção em que NÃO há correspondência de função entre o termo do período simples e a oração do período composto:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">Ele disse “amanhã”. / Ele disse que viria amanhã.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">Estou certa disso. / Tenho certeza de que o amor transforma as pessoas.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">Eu comprei um caderno. / Convém comprar um caderno.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">Sua vontade foi realizada. / Sua vontade foi sempre ser um jogador.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: C</b> “Um caderno” é objeto direto. Em “Convém comprar um caderno”, a oração “comprar um caderno” é o <b>sujeito</b> de “convém” (oração subjetiva).</p></details>
+</article>
+<article class="q" id="q10" data-m="port" data-c="A">
+<p class="qh"><span class="tag t-port">Português</span><span class="orig">PUC 2023.2 · Q08</span></p>
+<p class="en">O uso de crase está CORRETO somente em:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">...houve um retorno brusco para uma média de coberturas similar à dos anos 80.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">A gente só sobrevive e vive bem nos dias de hoje graças à vacinas.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">...havia campanhas, pegava-se à caderneta, tomava-se a picada e pronto!</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">Qualquer cidadão pode ser vacinado de 8h à 17h.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: A</b> “Similar à (média) dos anos 80”: há artigo subentendido. Erros: “graças a vacinas” (plural sem artigo), “pegava-se a caderneta” (objeto direto), “de 8h a 17h” ou “das 8h às 17h”.</p></details>
+</article>
+<article class="q" id="q11" data-m="port" data-c="A">
+<p class="qh"><span class="tag t-port">Português</span><span class="orig">PUC 2025.2 · Q12</span></p>
+<p class="en">No texto de João Ubaldo, assinale a opção em que o sinônimo proposto está INCORRETO:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">“o que queria dizer uma palavra <b>trivial</b>” → palavra notável</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">“aposentado como <b>marajá</b>” → funcionário público com salário considerado exageradamente alto</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">“resolvesse a <b>quadratura do círculo</b>” → problema extremamente complexo ou impossível</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">“escrito tão <b>ruibarbosianamente</b> quanto possível” → ao estilo atribuído a Rui Barbosa</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: A</b> Trivial = banal, comum. É o oposto de notável. Questão de sinônimo quase sempre pede o INCORRETO: procure o antônimo escondido.</p></details>
+</article>
+<article class="q" id="q12" data-m="bio" data-c="B">
+<p class="qh"><span class="tag t-bio">Biologia</span><span class="orig">PUC 2026.2 · Q16</span></p>
+<p class="en">Assinale a alternativa que apresenta doenças causadas por bactérias:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">Covid-19 e hanseníase.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">cólera e sífilis.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">dengue e malária.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">gripe e pneumonia.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: B</b> Covid, dengue e gripe são vírus; malária é protozoário. Pneumonia pode ser bacteriana ou viral, então o par não fecha.</p></details>
+</article>
+<article class="q" id="q13" data-m="bio" data-c="A">
+<p class="qh"><span class="tag t-bio">Biologia</span><span class="orig">PUC 2026.2 · Q19</span></p>
+<p class="en">Uma cidade ampliou a coleta de lixo e eliminou locais com água parada. Caíram as doenças transmitidas por mosquitos que se reproduzem nesses ambientes. Quais doenças foram diretamente impactadas?</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">Dengue e chikungunya.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">Dengue e rubéola.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">Hepatite B e cólera.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">Tuberculose e febre amarela.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: A</b> Água parada = criadouro do <i>Aedes aegypti</i>: dengue, chikungunya, zika (e febre amarela urbana). Rubéola, hepatite B e tuberculose não têm mosquito.</p></details>
+</article>
+<article class="q" id="q14" data-m="bio" data-c="A">
+<p class="qh"><span class="tag t-bio">Biologia</span><span class="orig">PUC 2026.2 · Q20</span></p>
+<p class="en">Numa folha em crescimento, observou-se um tecido de sustentação flexível formado por células vivas e outro que transporta as substâncias orgânicas da fotossíntese. São, respectivamente:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">colênquima e floema.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">colênquima e xilema.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">esclerênquima e floema.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">esclerênquima e xilema.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: A</b> Colênquima = sustentação, células vivas, flexível. Esclerênquima = células mortas, rígido. Floema leva seiva elaborada (açúcar); xilema leva água e sais.</p></details>
+</article>
+<article class="q" id="q15" data-m="bio" data-c="C">
+<p class="qh"><span class="tag t-bio">Biologia</span><span class="orig">PUC 2026.2 · Q21</span></p>
+<p class="en">Bactérias nas raízes de leguminosas converteram o N₂ do ar em compostos assimiláveis; a decomposição de restos vegetais liberou fosfato, absorvido pelas plantas. Esses processos são:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">amonificação e sedimentação do fósforo.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">desnitrificação e ciclo gasoso do fósforo.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">fixação biológica do nitrogênio e assimilação do fósforo.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">nitrificação e lixiviação do fósforo.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: C</b> N₂ do ar → amônia por bactérias (<i>Rhizobium</i>) = fixação. O fósforo não tem fase gasosa.</p></details>
+</article>
+<article class="q" id="q16" data-m="bio" data-c="A">
+<p class="qh"><span class="tag t-bio">Biologia</span><span class="orig">PUC 2026.1 · Q19</span></p>
+<p class="en">Fibrose cística: herança autossômica recessiva. Um casal normal teve um filho afetado. Qual a probabilidade de terem uma criança do sexo feminino, normal, mas portadora do alelo?</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">25%.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">50%.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">75%.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">100%.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: A</b> Casal Aa × Aa. Portadora (Aa) = 1/2. Menina = 1/2. Multiplica: 1/2 × 1/2 = 1/4 = 25%.</p></details>
+</article>
+<article class="q" id="q17" data-m="bio" data-c="D">
+<p class="qh"><span class="tag t-bio">Biologia</span><span class="orig">PUC 2026.1 · Q25</span></p>
+<p class="en">A leishmaniose pode ser caracterizada pelo seguinte vetor e agente etiológico:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">barbeiro <i>Triatoma infestans</i>, protozoário.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">caramujo <i>Biomphalaria glabrata</i>, bactéria.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">mosquito <i>Aedes aegypti</i>, vírus.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">mosquito-palha ou birigui <i>Lutzomyia longipalpis</i>, protozoário.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: D</b> A = Chagas. B mistura esquistossomose (caramujo) com bactéria. C = dengue. Leishmaniose = protozoário + mosquito-palha.</p></details>
+</article>
+<article class="q" id="q18" data-m="bio" data-c="C">
+<p class="qh"><span class="tag t-bio">Biologia</span><span class="orig">PUC 2025.2 · Q18</span></p>
+<p class="en">Sobre a malária, assinale a CORRETA:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">É causada por uma bactéria transmitida por moscas de áreas alagadas.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">A transmissão ocorre pelo contato direto com pessoas infectadas.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">O agente é um protozoário que se desenvolve parcialmente no mosquito e parcialmente no organismo humano.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">O <i>Aedes aegypti</i> é o vetor da malária em áreas urbanas.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: C</b> <i>Plasmodium</i> (protozoário), transmitido pela fêmea do <i>Anopheles</i>. O ciclo passa pelo mosquito e pelo humano.</p></details>
+</article>
+<article class="q" id="q19" data-m="bio" data-c="B">
+<p class="qh"><span class="tag t-bio">Biologia</span><span class="orig">PUC 2025.2 · Q21</span></p>
+<p class="en">Epistasia: o gene A é necessário para produzir pigmento; o gene B dá cor verde (B) ou roxa (b). Qual a cor das folhas de uma planta aaBB?</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">Roxa.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">Sem cor (albina).</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">Verde e roxa.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">Verde.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: B</b> Sem A não há pigmento, então o gene B nem se manifesta. aa = albina.</p></details>
+</article>
+<article class="q" id="q20" data-m="bio" data-c="C">
+<p class="qh"><span class="tag t-bio">Biologia</span><span class="orig">PUC 2025.2 · Q23</span></p>
+<p class="en">Sobre Chagas, leishmaniose e hanseníase, assinale a CORRETA:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">Chagas: protozoário transmitido por barbeiros, com manchas na pele e perda de sensibilidade nas extremidades.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">Hanseníase: protozoário que compromete fígado e baço.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">Leishmaniose: protozoário <i>Leishmania</i>, formas cutânea ou visceral, transmitida pela picada de flebotomíneos (mosquito-palha).</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">Todas podem ser prevenidas por vacinação nos primeiros anos de vida.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: C</b> Manchas com perda de sensibilidade = hanseníase (bactéria). Fígado e baço aumentados = leishmaniose visceral. A banca troca os sintomas entre as doenças.</p></details>
+</article>
+<article class="q" id="q21" data-m="bio" data-c="A">
+<p class="qh"><span class="tag t-bio">Biologia</span><span class="orig">PUC 2025.2 · Q20</span></p>
+<p class="en">Assinale a CORRETA sobre os tecidos musculares:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">O estriado cardíaco contrai o coração; o liso está nos órgãos internos, como os intestinos.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">O estriado cardíaco move os ossos e é controlado pelos batimentos.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">O estriado esquelético faz o movimento involuntário do coração e do estômago.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">O liso está nos músculos de pernas e braços e faz os movimentos voluntários.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: A</b> Esquelético = voluntário, osso. Cardíaco = estriado e involuntário. Liso = involuntário, vísceras.</p></details>
+</article>
+<article class="q" id="q22" data-m="bio" data-c="B">
+<p class="qh"><span class="tag t-bio">Biologia</span><span class="orig">PUC 2025.1 · Q21</span></p>
+<p class="en">O hormônio de crescimento (somatotropina) é produzido pela(o):</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">adrenal.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">hipófise.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">pâncreas.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">tireoide.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: B</b> Adeno-hipófise. Na mesma linha: insulina = pâncreas, T3/T4 = tireoide, adrenalina e cortisol = adrenal.</p></details>
+</article>
+<article class="q" id="q23" data-m="bio" data-c="B">
+<p class="qh"><span class="tag t-bio">Biologia</span><span class="orig">PUC 2025.1 · Q25</span></p>
+<p class="en">Todas as doenças a seguir são causadas por protozoários, EXCETO:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">Doença de Chagas.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">Hanseníase.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">Malária.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">Toxoplasmose.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: B</b> Hanseníase é bactéria (<i>Mycobacterium leprae</i>). Esse “intruso” aparece de novo e de novo.</p></details>
+</article>
+<article class="q" id="q24" data-m="bio" data-c="B">
+<p class="qh"><span class="tag t-bio">Biologia</span><span class="orig">PUC 2025.1 · Q22</span></p>
+<p class="en">Indique a associação INCORRETA entre hormônio vegetal e função:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">Ácido abscísico: em maior quantidade na queda do fruto.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">Auxinas: não promovem o crescimento do caule em plantas intactas.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">Citocininas: estimulam o crescimento foliar.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">Giberelinas: alongamento do caule em plantas normais.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: B</b> A auxina é o hormônio clássico do crescimento do caule (alongamento celular, fototropismo).</p></details>
+</article>
+<article class="q" id="q25" data-m="bio" data-c="D">
+<p class="qh"><span class="tag t-bio">Biologia</span><span class="orig">PUC 2024.2 · Q22</span></p>
+<p class="en">São plantas criptógamas e traqueófitas:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">Gramíneas.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">Musgos.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">Pinheiros.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">Samambaias.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: D</b> Criptógama = sem semente/flor (musgos e samambaias). Traqueófita = tem vasos (samambaias, pinheiros, angiospermas). A interseção é a samambaia.</p></details>
+</article>
+<article class="q" id="q26" data-m="quim" data-c="B">
+<p class="qh"><span class="tag t-quim">Química</span><span class="orig">PUC 2026.2 · Q26</span></p>
+<p class="en">Os elétrons livres (não ligantes) do átomo central de NH₃ e CO₂ são, respectivamente:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">1 e 2.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">2 e 0.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">3 e 4.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">5 e 4.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: B</b> N tem 5 de valência, usa 3 nas ligações com H e sobra 1 par (2 elétrons). O C usa os 4 nas duas duplas com O.</p></details>
+</article>
+<article class="q" id="q27" data-m="quim" data-c="C">
+<p class="qh"><span class="tag t-quim">Química</span><span class="orig">PUC 2026.2 · Q27</span></p>
+<p class="en">Para A + B → C + D, a lei de velocidade é v = k[A]²[B]. Qual mudança causa a MAIOR diminuição na rapidez?</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">Aumentar [A] e [B] por um fator de 2.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">Aumentar [B] por um fator de 4.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">Diminuir [A] e [B] por um fator de 2.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">Diminuir [B] por um fator de 3.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: C</b> Dividir ambas por 2: (1/2)² × (1/2) = 1/8. Dividir só [B] por 3 dá 1/3.</p></details>
+</article>
+<article class="q" id="q28" data-m="quim" data-c="B">
+<p class="qh"><span class="tag t-quim">Química</span><span class="orig">PUC 2026.2 · Q29</span></p>
+<p class="en">H₂ reage com 2,5 L de N₂ (mesma T e P) formando 5,0 L de NH₃. Volume mínimo de H₂? (N₂ + H₂ → NH₃, não balanceada)</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">5,0.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">7,5.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">10,0.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">15,0.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: B</b> N₂ + 3 H₂ → 2 NH₃. Em gases na mesma T e P, volume segue o coeficiente: 2,5 L × 3 = 7,5 L.</p></details>
+</article>
+<article class="q" id="q29" data-m="quim" data-c="A">
+<p class="qh"><span class="tag t-quim">Química</span><span class="orig">PUC 2026.2 · Q31</span></p>
+<p class="en">Ciclopropano → propeno, ΔH = −32 kJ/mol. No propeno: C–C = 345 e C=C = 611 kJ/mol. Considerando as C–H iguais, a energia de uma C–C do ciclopropano é:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">308.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">329.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">423.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">924.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: A</b> ΔH = quebradas − formadas. Quebra 3 C–C (3x); forma 345 + 611 = 956. 3x − 956 = −32 → 3x = 924 → x = 308.</p></details>
+</article>
+<article class="q" id="q30" data-m="quim" data-c="C">
+<p class="qh"><span class="tag t-quim">Química</span><span class="orig">PUC 2026.2 · Q32</span></p>
+<p class="en">Na pilha Cu | Cu²⁺ (1 mol/L) ‖ Ag⁺ (1 mol/L) | Ag, é CORRETO:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">A [Ag⁺] aumenta conforme a pilha descarrega.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">A massa do eletrodo de cobre aumenta.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">O eletrodo de cobre é o ânodo.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">Os elétrons vão da prata para o cobre pelo fio.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: C</b> A prata tem maior potencial de redução, então Ag⁺ reduz (cátodo, ganha massa) e o Cu oxida (ânodo, perde massa). Elétrons: ânodo → cátodo.</p></details>
+</article>
+<article class="q" id="q31" data-m="quim" data-c="A">
+<p class="qh"><span class="tag t-quim">Química</span><span class="orig">PUC 2026.2 · Q33</span></p>
+<p class="en">A pressão de vapor de um líquido em recipiente fechado depende da: 1) temperatura; 2) quantidade de líquido; 3) área da superfície.</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">1 apenas.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">1 e 3 apenas.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">1, 2 e 3.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">2 apenas.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: A</b> Pressão de vapor depende só da natureza do líquido e da temperatura.</p></details>
+</article>
+<article class="q" id="q32" data-m="quim" data-c="B">
+<p class="qh"><span class="tag t-quim">Química</span><span class="orig">PUC 2026.1 · Q27</span></p>
+<p class="en">Todas as propriedades estão relacionadas ao material que destila PRIMEIRO, EXCETO:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">Forças intermoleculares mais fracas.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">Maior massa molar.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">Maior pressão de vapor.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">Menor ponto de ebulição.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: B</b> Sai primeiro o mais volátil: forças fracas, PE baixo, pressão de vapor alta. Maior massa molar tende a aumentar o PE.</p></details>
+</article>
+<article class="q" id="q33" data-m="quim" data-c="A">
+<p class="qh"><span class="tag t-quim">Química</span><span class="orig">PUC 2026.1 · Q29</span></p>
+<p class="en">Quais podem formar ligações de hidrogênio com outras iguais? 1) H₂O 2) CH₃Cl 3) NH₄⁺</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">Somente 1.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">Somente 1 e 2.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">Somente 1 e 3.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">1, 2 e 3.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: A</b> Precisa de H ligado a F, O ou N <b>e</b> de um par livre no vizinho. CH₃Cl não tem H em F/O/N; no NH₄⁺ o N não tem par livre.</p></details>
+</article>
+<article class="q" id="q34" data-m="quim" data-c="C">
+<p class="qh"><span class="tag t-quim">Química</span><span class="orig">PUC 2026.1 · Q30</span></p>
+<p class="en">Qual alternativa contém espécies com o mesmo número de elétrons?</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">Be²⁺, Mg²⁺ e Ca²⁺</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">Fe²⁺, Co²⁺ e Ni²⁺</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">K⁺, Cl⁻ e S²⁻</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">Na, K e Rb</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: C</b> K⁺: 19 − 1 = 18. Cl⁻: 17 + 1 = 18. S²⁻: 16 + 2 = 18. Cátion perde, ânion ganha.</p></details>
+</article>
+<article class="q" id="q35" data-m="quim" data-c="A">
+<p class="qh"><span class="tag t-quim">Química</span><span class="orig">PUC 2026.1 · Q32</span></p>
+<p class="en">Decomposição da água oxigenada catalisada por MnO₂(s). Aumentam a rapidez: 1) aumentar a temperatura; 2) aumentar a área superficial do MnO₂.</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">Ambas 1 e 2.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">Nenhuma delas.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">Somente 1.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">Somente 2.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: A</b> Temperatura, superfície de contato, concentração e catalisador aceleram. Ser exotérmica não muda isso (só o equilíbrio).</p></details>
+</article>
+<article class="q" id="q36" data-m="quim" data-c="C">
+<p class="qh"><span class="tag t-quim">Química</span><span class="orig">PUC 2026.1 · Q33</span></p>
+<p class="en">Para liquefazer o gás nitrogênio, a maneira mais eficaz é:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">Aumentar a temperatura e aumentar a pressão.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">Aumentar a temperatura e diminuir a pressão.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">Diminuir a temperatura e aumentar a pressão.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">Diminuir a temperatura e diminuir a pressão.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: C</b> Para juntar as moléculas: tirar energia (esfriar) e apertar (pressão).</p></details>
+</article>
+<article class="q" id="q37" data-m="quim" data-c="D">
+<p class="qh"><span class="tag t-quim">Química</span><span class="orig">PUC 2026.1 · Q34</span></p>
+<p class="en">Os pontos de ebulição de F₂, Cl₂, Br₂ e I₂ aumentam nessa ordem. Isso se deve às forças:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">coligativas.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">das ligações covalentes.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">de dipolo permanente.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">de dispersão de London.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: D</b> São apolares, então só têm London. Molécula maior (mais elétrons) = London mais forte = PE maior. Ferver não quebra ligação covalente.</p></details>
+</article>
+<article class="q" id="q38" data-m="quim" data-c="A">
+<p class="qh"><span class="tag t-quim">Química</span><span class="orig">PUC 2025.2 · Q26</span></p>
+<p class="en">I: 2A⁴⁺ + B → 2A³⁺ + B²⁺. II: B²⁺ + 2C²⁺ → B + 2C³⁺. III: D²⁺ + B → não reage. IV: 2C³⁺ + D → não reage. O agente oxidante mais forte é:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">A⁴⁺</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">B</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">B²⁺</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">C²⁺</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: A</b> Oxidante é quem se reduz. A⁴⁺ consegue oxidar o B. O oxidante mais forte é o que “rouba” elétron de todo mundo.</p></details>
+</article>
+<article class="q" id="q39" data-m="quim" data-c="B">
+<p class="qh"><span class="tag t-quim">Química</span><span class="orig">PUC 2025.2 · Q33</span></p>
+<p class="en">Para propor seu modelo atômico, Rutherford:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">bombardeou uma tela de sulfeto de zinco com radiação do tubo de raios catódicos.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">fez a radiação alfa incidir sobre folhas de ouro.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">usou ampolas de Crookes para emissão de luzes radiantes.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">usou elétrons acelerados e um ânodo de molibdênio.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: B</b> Partículas alfa na lâmina de ouro: a maioria atravessa, então o átomo é quase todo vazio, com núcleo pequeno, denso e positivo.</p></details>
+</article>
+<article class="q" id="q40" data-m="quim" data-c="D">
+<p class="qh"><span class="tag t-quim">Química</span><span class="orig">PUC 2025.1 · Q29</span></p>
+<p class="en">O nitrogênio sofre oxidação em:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">2 NO₃⁻ → N₂O₅</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">N₂ → 2 NH₃</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">N₂O₄ → 2 NO₂</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">NO₂⁻ → NO₃⁻</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: D</b> Oxidação = Nox aumenta. No NO₂⁻ o N é +3; no NO₃⁻ é +5. (A: +5→+5; B: 0→−3, redução; C: +4→+4.)</p></details>
+</article>
+<article class="q" id="q41" data-m="quim" data-c="D">
+<p class="qh"><span class="tag t-quim">Química</span><span class="orig">PUC 2025.1 · Q31</span></p>
+<p class="en">Quantidade aproximada, em mol, de íons totais em 100 mL de Na₂CO₃ 2 mol/L:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">0,1</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">0,2</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">0,4</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">0,6</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: D</b> n = 2 × 0,1 = 0,2 mol de sal. Cada Na₂CO₃ libera 3 íons (2 Na⁺ + CO₃²⁻): 0,6 mol.</p></details>
+</article>
+<article class="q" id="q42" data-m="quim" data-c="A">
+<p class="qh"><span class="tag t-quim">Química</span><span class="orig">PUC 2025.1 · Q35</span></p>
+<p class="en">Em qual(is) há produção de gás? I: H₂SO₄(aq) + Zn(s). II: HCl(aq) + CaCO₃(s).</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">Em ambas.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">Em nenhuma.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">Somente na I.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">Somente na II.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: A</b> Ácido + metal ativo libera H₂. Ácido + carbonato libera CO₂ (efervescência).</p></details>
+</article>
+<article class="q" id="q43" data-m="quim" data-c="B">
+<p class="qh"><span class="tag t-quim">Química</span><span class="orig">PUC 2024.2 · Q27</span></p>
+<p class="en">Qual substância produz solução aquosa NÃO eletrolítica?</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">NaC₂H₃O₂</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">CH₂O</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">H₂SO₄</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">KNO₃</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: B</b> Sais e ácidos liberam íons. CH₂O (formaldeído) é molecular e não ioniza.</p></details>
+</article>
+<article class="q" id="q44" data-m="quim" data-c="C">
+<p class="qh"><span class="tag t-quim">Química</span><span class="orig">PUC 2024.2 · Q35</span></p>
+<p class="en">MgCl₂ dissolve em água formando:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">átomos hidratados de Mg e íons Cl⁻ hidratados.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">átomos de Mg e moléculas de Cl₂ hidratadas.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">íons Mg²⁺ hidratados e íons Cl⁻ hidratados.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">moléculas hidratadas de MgCl₂.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: C</b> Composto iônico em água sofre dissociação: os íons se separam e são cercados por água.</p></details>
+</article>
+<article class="q" id="q45" data-m="fis" data-c="B">
+<p class="qh"><span class="tag t-fis">Física</span><span class="orig">PUC 2026.2 · Q36</span></p>
+<p class="en">Astronautas na Estação Espacial (400 km de altitude) e uma pessoa num elevador com o cabo rompido sentem “ausência de peso”. Assinale a CORRETA:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">A ausência de peso indica que os referenciais não têm aceleração, sendo inerciais.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">Em ambos os casos os corpos estão em queda livre, e a ausência de força de contato faz com que pareçam não sentir o peso.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">Na estação, a gravidade é nula por causa da grande distância da Terra.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">No elevador em queda livre, a força resultante sobre cada corpo é nula.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: B</b> A 400 km a gravidade ainda é cerca de 90% da da superfície. A estação está caindo o tempo todo em volta da Terra. O peso existe; falta a força do chão.</p></details>
+</article>
+<article class="q" id="q46" data-m="fis" data-c="D">
+<p class="qh"><span class="tag t-fis">Física</span><span class="orig">PUC 2026.2 · Q37</span></p>
+<p class="en">Sobre a conversão de energia numa hidrelétrica, assinale a CORRETA:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">A energia produzida depende da quantidade de água e independe da altura de queda.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">A indução ocorre por um campo magnético constante mantido pela turbina.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">Se o escoamento for contínuo, a energia potencial vira integralmente energia elétrica.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">Parte da energia potencial vira outras formas de energia, o que impede rendimento de 100%.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: D</b> Ep = mgh depende da altura. Indução exige campo <b>variável</b>. Nenhuma máquina real tem rendimento de 100%.</p></details>
+</article>
+<article class="q" id="q47" data-m="fis" data-c="C">
+<p class="qh"><span class="tag t-fis">Física</span><span class="orig">PUC 2026.2 · Q38</span></p>
+<p class="en">O rubi absorve principalmente azul-violeta (400–450 nm) e verde (500–550 nm). Assinale a CORRETA:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">A cor de um cristal depende da intensidade da luz e independe do comprimento de onda.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">A cor do rubi corresponde às regiões azul-violeta e verde.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">A cor observada está associada aos comprimentos de onda que ele não absorve.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">Um cristal que absorve luz de menor comprimento de onda será azul.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: C</b> Você enxerga o que volta para o olho: a luz refletida ou transmitida. O rubi absorve azul e verde e sobra o vermelho.</p></details>
+</article>
+<article class="q" id="q48" data-m="fis" data-c="B">
+<p class="qh"><span class="tag t-fis">Física</span><span class="orig">PUC 2026.2 · Q39</span></p>
+<p class="en">Um sapo de 0,2 kg salta verticalmente com v₀ = 2 m/s (g = 10 m/s²). Altura máxima e energia convertida em potencial:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">0,1 m e 0,2 J.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">0,2 m e 0,4 J.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">0,3 m e 0,6 J.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">0,4 m e 0,8 J.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: B</b> h = v²/2g = 4/20 = 0,2 m. E = mv²/2 = 0,2 × 4 / 2 = 0,4 J (confere: mgh = 0,2 × 10 × 0,2).</p></details>
+</article>
+<article class="q" id="q49" data-m="fis" data-c="C">
+<p class="qh"><span class="tag t-fis">Física</span><span class="orig">PUC 2026.1 · Q40</span></p>
+<p class="en">Um bloco está em repouso sobre uma mesa sem atrito, dentro de um trem com velocidade de módulo constante. É CORRETO que, durante uma:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">pequena aceleração, o bloco se moveria para frente em relação à mesa.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">pequena desaceleração, o bloco não se moveria em relação à mesa.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">trajetória curvilínea, o bloco se movimentaria em relação à mesa.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">trajetória retilínea, o bloco se moveria lateralmente em relação à mesa.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: C</b> Inércia: o bloco quer seguir em linha reta com a mesma velocidade. Trem acelera, bloco vai para trás; trem freia, bloco vai para frente; trem faz curva, bloco escorrega.</p></details>
+</article>
+<article class="q" id="q50" data-m="fis" data-c="B">
+<p class="qh"><span class="tag t-fis">Física</span><span class="orig">PUC 2025.1 · Q38</span></p>
+<p class="en">Como o carregador por indução (bobina com corrente alternada) carrega a bateria?</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">Gera ondas que aquecem a bateria, provocando corrente.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">Gera um campo magnético variável, provocando corrente elétrica na bateria.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">Uma corrente alternada atravessa do carregador para a bateria.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">Uma corrente contínua atravessa do carregador para a bateria.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: B</b> Lei de Faraday: campo magnético que varia induz corrente. Corrente não “pula” pelo ar.</p></details>
+</article>
+<article class="q" id="q51" data-m="fis" data-c="B">
+<p class="qh"><span class="tag t-fis">Física</span><span class="orig">PUC 2025.2 · Q38</span></p>
+<p class="en">Espectrômetro de massa: íons entram com velocidade v num campo magnético e fazem semicírculos de raio r = mv/(qB). O íon de ferro fez o raio maior. I) A energia cinética dos íons permanece constante. II) Com campo elétrico uniforme no lugar do magnético, os íons continuariam em semicírculos. III) O ferro tem massa maior que o outro íon.</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">I e II, apenas.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">I e III, apenas.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">II e III, apenas.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">I, II e III.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: B</b> Força magnética é perpendicular à velocidade: muda a direção, não o módulo, então a Ec se conserva. Campo elétrico uniforme faz parábola. Pela fórmula, raio maior = massa maior.</p></details>
+</article>
+<article class="q" id="q52" data-m="mat" data-c="B">
+<p class="qh"><span class="tag t-mat">Matemática</span><span class="orig">PUC 2026.2 · Q41</span></p>
+<p class="en">Um drone segue uma reta paralela a y = x passando por (1, 3) e corta a circunferência (x − 1)² + (y − 2)² = 25 em dois pontos. A soma das abscissas desses pontos é:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">0</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">1</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">2</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">3</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: B</b> Paralela a y = x tem inclinação 1: y = x + 2. Substitui: (x − 1)² + x² = 25 → x² − x − 12 = 0. Soma das raízes = −b/a = 1.</p></details>
+</article>
+<article class="q" id="q53" data-m="mat" data-c="C">
+<p class="qh"><span class="tag t-mat">Matemática</span><span class="orig">PUC 2026.2 · Q42</span></p>
+<p class="en">Área retangular: um lado mede 40 km e o outro 8,0 × 10⁵ m. Serão plantadas 100 mil mudas por km². Quantas mudas?</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">3,2 × 10³</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">3,2 × 10⁶</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">3,2 × 10⁹</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">3,2 × 10¹²</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: C</b> 8 × 10⁵ m = 800 km. Área = 40 × 800 = 32.000 km². × 10⁵ = 3,2 × 10⁹. Primeiro converta tudo para a mesma unidade.</p></details>
+</article>
+<article class="q" id="q54" data-m="mat" data-c="A">
+<p class="qh"><span class="tag t-mat">Matemática</span><span class="orig">PUC 2026.2 · Q43</span></p>
+<p class="en">Juros compostos por 4 anos. Opção 1: 10% a.a. nos dois primeiros anos e 20% nos dois seguintes. Opção 2: 15% a.a. Opção 3: 20% nos dois primeiros e 10% nos dois seguintes. Montantes M1, M2, M3:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">M2 > M3 = M1</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">M2 > M3 > M1</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">M3 = M2 = M1</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">M3 > M2 > M1</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: A</b> M1 = M3 = 1,1² × 1,2² = 1,7424 (a ordem das taxas não muda o produto). M2 = 1,15⁴ ≈ 1,749. Logo M2 é um pouco maior.</p></details>
+</article>
+<article class="q" id="q55" data-m="mat" data-c="C">
+<p class="qh"><span class="tag t-mat">Matemática</span><span class="orig">PUC 2026.1 · Q41</span></p>
+<p class="en">Num triângulo retângulo, os ângulos estão em progressão aritmética. O menor lado mede 6 cm. O perímetro é:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">12</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">36</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">18 + 6√3</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">12 + 6√2</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: C</b> Ângulos em PA somando 180° com um de 90°: 30°, 60°, 90°. Lados x, x√3, 2x com x = 6: 6 + 6√3 + 12.</p></details>
+</article>
+<article class="q" id="q56" data-m="mat" data-c="B">
+<p class="qh"><span class="tag t-mat">Matemática</span><span class="orig">PUC 2026.1 · Q42</span></p>
+<p class="en">Um triângulo equilátero de lado 17 cm passa a ter lados com o dobro do comprimento. O novo triângulo terá:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">o dobro da área e o dobro do perímetro.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">o dobro do perímetro e quatro vezes a área.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">o quádruplo do perímetro e o dobro da área.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">o triplo do perímetro e o triplo da área.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: B</b> Lados × k: perímetro × k, área × k², volume × k³.</p></details>
+</article>
+<article class="q" id="q57" data-m="mat" data-c="D">
+<p class="qh"><span class="tag t-mat">Matemática</span><span class="orig">PUC 2026.1 · Q45</span></p>
+<p class="en">TV de R$ 5.000. Desconto de 20%, depois mais 10% sobre o valor do carrinho. Dividiu em 5 parcelas; pagou a 1ª e adiantou as outras 4 com 3% de desconto em cada. Total pago:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">R$ 3.350,00</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">R$ 3.421,25</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">R$ 3.492,00</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">R$ 3.513,60</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: D</b> 5000 × 0,8 × 0,9 = 3600 (descontos sucessivos se multiplicam; não são 30%). Parcela = 720. Total = 720 + 4 × 720 × 0,97 = 3513,60.</p></details>
+</article>
+<article class="q" id="q58" data-m="mat" data-c="B">
+<p class="qh"><span class="tag t-mat">Matemática</span><span class="orig">PUC 2025.2 · Q42</span></p>
+<p class="en">A quantidade vendida de um remédio é Q(x) = 100 − 2x, sendo x o preço. Cada unidade custa R$ 12. Que preço maximiza o lucro?</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">R$ 25,00</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">R$ 31,00</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">R$ 38,00</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">R$ 56,00</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: B</b> Lucro = (x − 12)(100 − 2x). Raízes: 12 e 50. O máximo fica no meio: (12 + 50)/2 = 31.</p></details>
+</article>
+<article class="q" id="q59" data-m="mat" data-c="C">
+<p class="qh"><span class="tag t-mat">Matemática</span><span class="orig">PUC 2025.2 · Q45</span></p>
+<p class="en">Produto anunciado por R$ 1.500. Pagando com o cartão da loja, 10% de desconto. A loja ainda dá cashback de 15% sobre o valor pago. Valor do cashback:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">R$ 127,50</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">R$ 150,00</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">R$ 202,50</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">R$ 225,00</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: C</b> Valor pago = 1500 × 0,9 = 1350. Cashback = 15% de 1350 = 202,50. A pegadinha é calcular sobre o preço cheio (225).</p></details>
+</article>
+<article class="q" id="q60" data-m="mat" data-c="B">
+<p class="qh"><span class="tag t-mat">Matemática</span><span class="orig">PUC 2025.1 · Q43</span></p>
+<p class="en">1.200 kg de cimento em sacos de 50 kg. Taxa de entrega de R$ 200 mais R$ 25 por saco. Custo total:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">R$ 600,00</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">R$ 800,00</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">R$ 2.600,00</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">R$ 5.400,00</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: B</b> 1200/50 = 24 sacos. 24 × 25 = 600. 600 + 200 = 800.</p></details>
+</article>
+<article class="q" id="q61" data-m="mat" data-c="D">
+<p class="qh"><span class="tag t-mat">Matemática</span><span class="orig">PUC 2025.1 · Q45</span></p>
+<p class="en">Queria aplicar R$ 2.000 a 12% ao ano, mas só aplicou R$ 1.500. Para ter o mesmo rendimento anual, precisaria de uma taxa de:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">15%</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">15,5%</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">15,25%</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">16%</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: D</b> Rendimento planejado: 12% de 2000 = 240. 240/1500 = 0,16 = 16%.</p></details>
+</article>
+<article class="q" id="q62" data-m="mat" data-c="B">
+<p class="qh"><span class="tag t-mat">Matemática</span><span class="orig">PUC 2024.2 · Q41</span></p>
+<p class="en">Frasco de soro de 648 mL. Caem x gotas a cada 20 s, sendo x a raiz positiva de x(x − 2) = 12 + 2x. Cada gota tem 0,4 mL. O frasco esvazia em aproximadamente:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">1h 20min</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">1h 30min</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">1h 40min</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">1h 50min</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: B</b> x² − 4x − 12 = 0, então x = 6 gotas a cada 20 s = 18 gotas/min = 7,2 mL/min. 648/7,2 = 90 min.</p></details>
+</article>
+<article class="q" id="q63" data-m="ing" data-c="D">
+<p class="qh"><span class="tag t-ing">Inglês</span><span class="orig">PUC 2025.2 · Q46</span></p>
+<p class="en">The word <b>can</b> in “chronic states of loneliness <b>can</b> be linked with depression” indicates:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">a certainty.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">a necessity.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">a permission.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">a possibility.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: D</b> can / may / might / could = possibility. “Can” caiu em 2021.2 e 2025.2; “might”, em 2023.1.</p></details>
+</article>
+<article class="q" id="q64" data-m="ing" data-c="A">
+<p class="qh"><span class="tag t-ing">Inglês</span><span class="orig">PUC 2025.2 · Q49</span></p>
+<p class="en"><b>Moreover</b> in “Moreover, despite our fears for the elders, research shows...” conveys an idea of:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">addition.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">comparison.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">contrast.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">reason.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: A</b> moreover / furthermore / besides / also / in addition = addition.</p></details>
+</article>
+<article class="q" id="q65" data-m="ing" data-c="B">
+<p class="qh"><span class="tag t-ing">Inglês</span><span class="orig">PUC 2025.1 · Q48</span></p>
+<p class="en">What does <b>to</b> in “Trees grow colourful, delicious fruit <b>to</b> attract hungry animals” indicate?</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">A conclusion.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">A purpose.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">An addition.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">An opposition.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: B</b> to + verbo / in order to / so that = purpose (finality). Igual ao “para” do português.</p></details>
+</article>
+<article class="q" id="q66" data-m="ing" data-c="A">
+<p class="qh"><span class="tag t-ing">Inglês</span><span class="orig">PUC 2026.1 · Q47</span></p>
+<p class="en"><b>So</b> in “<b>So</b>, most of the internet remains out of sight” indicates that this sentence brings:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">a conclusion to the previous ones.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">a purpose to explain the previous ones.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">additional ideas to the previous ones.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">opposing ideas to the previous ones.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: A</b> so / therefore / thus / hence = conclusion or consequence.</p></details>
+</article>
+<article class="q" id="q67" data-m="ing" data-c="A">
+<p class="qh"><span class="tag t-ing">Inglês</span><span class="orig">PUC 2024.2 · Q48</span></p>
+<p class="en"><b>Will</b> in “dozens of countries <b>will</b> face population decline in the near future” indicates:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">A certainty.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">A possibility.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">A requirement.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">A suggestion.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: A</b> will = certainty (futuro dado como certo); should = suggestion; must = obligation.</p></details>
+</article>
+<article class="q" id="q68" data-m="ing" data-c="D">
+<p class="qh"><span class="tag t-ing">Inglês</span><span class="orig">PUC 2024.2 · Q49</span></p>
+<p class="en"><b>Yet</b> in “<b>Yet</b>, when taking a closer look at the correlation...” conveys an idea of:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">Cause.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">Comparison.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">Conclusion.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">Contrast.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: D</b> yet / however / but / although / despite / nevertheless = contrast.</p></details>
+</article>
+<article class="q" id="q69" data-m="ing" data-c="D">
+<p class="qh"><span class="tag t-ing">Inglês</span><span class="orig">PUC 2024.1 · Q49</span></p>
+<p class="en"><b>Should</b> in “They <b>should</b> always make it clear when they are partnering for a campaign” indicates:</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">A permission.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">A prohibition.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">A restriction.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">A suggestion.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: D</b> should / ought to = suggestion (advice).</p></details>
+</article>
+<article class="q" id="q70" data-m="ing" data-c="B">
+<p class="qh"><span class="tag t-ing">Inglês</span><span class="orig">PUC 2026.2 · Q48</span></p>
+<p class="en">What does <b>such as</b> in “hotter regions <b>such as</b> Central America, the Caribbean...” indicate?</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">An objective.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">An exemplification.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">A contrast.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">A comparison.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: B</b> such as / for example / for instance / like = exemplification.</p></details>
+</article>
+<article class="q" id="q71" data-m="ing" data-c="C">
+<p class="qh"><span class="tag t-ing">Inglês</span><span class="orig">PUC 2023.1 · Q48</span></p>
+<p class="en">What does <b>However</b> at the beginning of paragraph 3 imply?</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">That a cause for the previous ideas will be presented.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">That a conclusion to the previous ideas will be presented.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">That contrasting ideas to the previous ones will be presented.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">That ideas in agreement with the previous ones will be presented.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: C</b> however = contrast.</p></details>
+</article>
+<article class="q" id="q72" data-m="ing" data-c="A">
+<p class="qh"><span class="tag t-ing">Inglês</span><span class="orig">PUC 2022.2 · Q47</span></p>
+<p class="en">What does <b>as</b> in “And <b>as</b> it has no smartphone functionality...” indicate?</p>
+<ol class="alts"><li><button type="button" class="alt" data-l="A"><span class="bub">A</span><span class="at">A cause.</span></button></li><li><button type="button" class="alt" data-l="B"><span class="bub">B</span><span class="at">A comparison.</span></button></li><li><button type="button" class="alt" data-l="C"><span class="bub">C</span><span class="at">A condition.</span></button></li><li><button type="button" class="alt" data-l="D"><span class="bub">D</span><span class="at">A contrast.</span></button></li></ol>
+<details class="ans"><summary>Ver resposta</summary><p><b class="gab">Gabarito oficial: A</b> as / since / because / due to = cause. (as também pode ser comparação: “as tall as”. Olhe o contexto.)</p></details>
+</article>
+  </div>
+</section>
+
+<!-- CARRO -->
+<section id="carro">
+  <p class="lbl">Para a estrada</p>
+  <h2>Aulas em áudio</h2>
+<p>27 aulas, cerca de 6 horas, na ordem de escuta (as matérias já vêm misturadas). Cada aula explica o assunto do zero, mostra como a PUC pergunta e termina com perguntas de fixação: quando ouvir “Pense”, responda em voz alta. Sem sinal na estrada? Toque em <b>baixar</b> em cada aula antes de sair.</p>
+<ul class="aud"><li><p class="an"><span class="tag">Biologia</span> 01. Vírus e bactérias <a class="dl" href="aulas/01-B01-virus-e-bacterias.mp3" download>baixar</a></p><audio controls preload="none" src="aulas/01-B01-virus-e-bacterias.mp3"></audio></li>
+<li><p class="an"><span class="tag">Biologia</span> 02. Protozoários e vermes <a class="dl" href="aulas/02-B02-protozoarios-e-vermes.mp3" download>baixar</a></p><audio controls preload="none" src="aulas/02-B02-protozoarios-e-vermes.mp3"></audio></li>
+<li><p class="an"><span class="tag">Português</span> 03. Interpretação e argumentação <a class="dl" href="aulas/03-P01-interpretacao-e-argumentacao.mp3" download>baixar</a></p><audio controls preload="none" src="aulas/03-P01-interpretacao-e-argumentacao.mp3"></audio></li>
+<li><p class="an"><span class="tag">Química</span> 04. Forças entre moléculas, ebulição e destilação <a class="dl" href="aulas/04-Q02-forcas-e-propriedades.mp3" download>baixar</a></p><audio controls preload="none" src="aulas/04-Q02-forcas-e-propriedades.mp3"></audio></li>
+<li><p class="an"><span class="tag">Redação</span> 05. Como escrever a redação da PUC <a class="dl" href="aulas/05-R01-redacao-como-escrever.mp3" download>baixar</a></p><audio controls preload="none" src="aulas/05-R01-redacao-como-escrever.mp3"></audio></li>
+<li><p class="an"><span class="tag">Biologia</span> 06. Imunidade e vacinas <a class="dl" href="aulas/06-B03-imunidade-e-vacinas.mp3" download>baixar</a></p><audio controls preload="none" src="aulas/06-B03-imunidade-e-vacinas.mp3"></audio></li>
+<li><p class="an"><span class="tag">Química</span> 07. Termoquímica <a class="dl" href="aulas/07-Q04-termoquimica.mp3" download>baixar</a></p><audio controls preload="none" src="aulas/07-Q04-termoquimica.mp3"></audio></li>
+<li><p class="an"><span class="tag">Português</span> 08. Sujeito e orações <a class="dl" href="aulas/08-P02-sintaxe-sujeito-e-oracoes.mp3" download>baixar</a></p><audio controls preload="none" src="aulas/08-P02-sintaxe-sujeito-e-oracoes.mp3"></audio></li>
+<li><p class="an"><span class="tag">Matemática</span> 09. Porcentagem, juros e proporção <a class="dl" href="aulas/09-M01-porcentagem-e-proporcao.mp3" download>baixar</a></p><audio controls preload="none" src="aulas/09-M01-porcentagem-e-proporcao.mp3"></audio></li>
+<li><p class="an"><span class="tag">Biologia</span> 10. Ecologia e meio ambiente <a class="dl" href="aulas/10-B04-ecologia.mp3" download>baixar</a></p><audio controls preload="none" src="aulas/10-B04-ecologia.mp3"></audio></li>
+<li><p class="an"><span class="tag">Química</span> 11. Pilha e eletrólise <a class="dl" href="aulas/11-Q03-eletroquimica.mp3" download>baixar</a></p><audio controls preload="none" src="aulas/11-Q03-eletroquimica.mp3"></audio></li>
+<li><p class="an"><span class="tag">Redação</span> 12. Uma redação completa, comentada <a class="dl" href="aulas/12-R02-redacao-exemplo-comentado.mp3" download>baixar</a></p><audio controls preload="none" src="aulas/12-R02-redacao-exemplo-comentado.mp3"></audio></li>
+<li><p class="an"><span class="tag">Física</span> 13. Movimento, Newton, energia e gravitação <a class="dl" href="aulas/13-F01-movimento-forcas-gravitacao.mp3" download>baixar</a></p><audio controls preload="none" src="aulas/13-F01-movimento-forcas-gravitacao.mp3"></audio></li>
+<li><p class="an"><span class="tag">Biologia</span> 14. Corpo humano <a class="dl" href="aulas/14-B05-corpo-humano.mp3" download>baixar</a></p><audio controls preload="none" src="aulas/14-B05-corpo-humano.mp3"></audio></li>
+<li><p class="an"><span class="tag">Português</span> 15. Concordância, crase, pontuação e acento <a class="dl" href="aulas/15-P03-concordancia-crase-pontuacao.mp3" download>baixar</a></p><audio controls preload="none" src="aulas/15-P03-concordancia-crase-pontuacao.mp3"></audio></li>
+<li><p class="an"><span class="tag">Química</span> 16. Cinética e equilíbrio <a class="dl" href="aulas/16-Q05-cinetica-e-equilibrio.mp3" download>baixar</a></p><audio controls preload="none" src="aulas/16-Q05-cinetica-e-equilibrio.mp3"></audio></li>
+<li><p class="an"><span class="tag">Matemática</span> 17. Geometria plana e analítica <a class="dl" href="aulas/17-M02-geometria.mp3" download>baixar</a></p><audio controls preload="none" src="aulas/17-M02-geometria.mp3"></audio></li>
+<li><p class="an"><span class="tag">Biologia</span> 18. Plantas <a class="dl" href="aulas/18-B06-plantas.mp3" download>baixar</a></p><audio controls preload="none" src="aulas/18-B06-plantas.mp3"></audio></li>
+<li><p class="an"><span class="tag">Inglês</span> 19. Leitura e conectivos <a class="dl" href="aulas/19-I01-ingles-leitura.mp3" download>baixar</a></p><audio controls preload="none" src="aulas/19-I01-ingles-leitura.mp3"></audio></li>
+<li><p class="an"><span class="tag">Química</span> 20. Mol, estequiometria e soluções <a class="dl" href="aulas/20-Q06-estequiometria-e-solucoes.mp3" download>baixar</a></p><audio controls preload="none" src="aulas/20-Q06-estequiometria-e-solucoes.mp3"></audio></li>
+<li><p class="an"><span class="tag">Física</span> 21. Calor, ondas e eletricidade <a class="dl" href="aulas/21-F02-calor-ondas-eletricidade.mp3" download>baixar</a></p><audio controls preload="none" src="aulas/21-F02-calor-ondas-eletricidade.mp3"></audio></li>
+<li><p class="an"><span class="tag">Biologia</span> 22. Genética <a class="dl" href="aulas/22-B07-genetica.mp3" download>baixar</a></p><audio controls preload="none" src="aulas/22-B07-genetica.mp3"></audio></li>
+<li><p class="an"><span class="tag">Português</span> 23. Sentido, variação e figuras <a class="dl" href="aulas/23-P04-semantica-variacao-e-figuras.mp3" download>baixar</a></p><audio controls preload="none" src="aulas/23-P04-semantica-variacao-e-figuras.mp3"></audio></li>
+<li><p class="an"><span class="tag">Química</span> 24. Química orgânica <a class="dl" href="aulas/24-Q07-quimica-organica.mp3" download>baixar</a></p><audio controls preload="none" src="aulas/24-Q07-quimica-organica.mp3"></audio></li>
+<li><p class="an"><span class="tag">Matemática</span> 25. Funções e probabilidade <a class="dl" href="aulas/25-M03-funcoes.mp3" download>baixar</a></p><audio controls preload="none" src="aulas/25-M03-funcoes.mp3"></audio></li>
+<li><p class="an"><span class="tag">Química</span> 26. Átomo e ligações <a class="dl" href="aulas/26-Q01-atomo-e-ligacoes.mp3" download>baixar</a></p><audio controls preload="none" src="aulas/26-Q01-atomo-e-ligacoes.mp3"></audio></li>
+<li><p class="an"><span class="tag">Biologia</span> 27. Célula e animais <a class="dl" href="aulas/27-B08-celula-e-animais.mp3" download>baixar</a></p><audio controls preload="none" src="aulas/27-B08-celula-e-animais.mp3"></audio></li></ul>
+  <h3>Revisões curtas</h3>
+  <p>Nove faixas de 4 a 6 minutos com as regras de bolso, cerca de 47 minutos no total. Boas para a véspera.</p>
+  <ul class="aud">
+<li><p class="an">1. Como é a prova e como usar o tempo <a class="dl" href="audio/01-como-e-a-prova.mp3" download>baixar</a></p><audio controls preload="none" src="audio/01-como-e-a-prova.mp3"></audio></li>
+<li><p class="an">2. Português: as pegadinhas que se repetem <a class="dl" href="audio/02-portugues-pegadinhas.mp3" download>baixar</a></p><audio controls preload="none" src="audio/02-portugues-pegadinhas.mp3"></audio></li>
+<li><p class="an">3. Redação: o modelo de 4 parágrafos e temas prováveis <a class="dl" href="audio/03-redacao.mp3" download>baixar</a></p><audio controls preload="none" src="audio/03-redacao.mp3"></audio></li>
+<li><p class="an">4. Biologia: doenças, agentes e vetores <a class="dl" href="audio/04-biologia-doencas.mp3" download>baixar</a></p><audio controls preload="none" src="audio/04-biologia-doencas.mp3"></audio></li>
+<li><p class="an">5. Biologia: plantas, animais, corpo e ecologia <a class="dl" href="audio/05-biologia-resto.mp3" download>baixar</a></p><audio controls preload="none" src="audio/05-biologia-resto.mp3"></audio></li>
+<li><p class="an">6. Química: as regras de bolso <a class="dl" href="audio/06-quimica.mp3" download>baixar</a></p><audio controls preload="none" src="audio/06-quimica.mp3"></audio></li>
+<li><p class="an">7. Física e Matemática: o que decorar <a class="dl" href="audio/07-fisica-matematica.mp3" download>baixar</a></p><audio controls preload="none" src="audio/07-fisica-matematica.mp3"></audio></li>
+<li><p class="an">8. Inglês: conectivos e modais <a class="dl" href="audio/08-ingles.mp3" download>baixar</a></p><audio controls preload="none" src="audio/08-ingles.mp3"></audio></li>
+<li><p class="an">9. Quiz falado: pergunta, pausa, resposta <a class="dl" href="audio/09-quiz-falado.mp3" download>baixar</a></p><audio controls preload="none" src="audio/09-quiz-falado.mp3"></audio></li>
+  </ul>
+  <div class="card">
+    <h3>Modo carona</h3>
+    <p>Com outra pessoa no carro: ela abre o <a href="#treino">Treino</a>, lê o enunciado e as 4 alternativas em voz alta, e quem vai fazer a prova responde de olhos fechados. Português, Biologia e Inglês funcionam muito bem assim. Química e Matemática com conta é melhor pular.</p>
+    <p>Outra brincadeira: a pessoa fala o nome de uma doença e ela responde agente, vetor e prevenção.</p>
+  </div>
+</section>
+
+<!-- DIA D -->
+<section id="diad">
+  <p class="lbl">Sábado, 17/10</p>
+  <h2>Dia da prova</h2>
+  <div class="card">
+    <h3>Antes de sair</h3>
+    <ul class="clean">
+      <li>O <b>cartão de inscrição</b> sai no Painel do Candidato até 48 horas antes, com o local e o horário. Baixe na quinta ou sexta: pucminas.br/paineldocandidato</li>
+      <li>Local de Betim: Rua do Rosário, 1.081. Chegue cedo: quem chega depois do horário é excluído e não há segunda chamada.</li>
+      <li>Leve o cartão impresso, documento com foto e caneta. Deixe celular e relógio digital fora: tê-los durante a prova elimina, mesmo desligados.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>Uma divisão possível das 4 horas</h3>
+    <div class="tbl" style="border:0"><table>
+      <tbody>
+        <tr><td class="n">40 min</td><td>Português (15). Leia os textos com calma: um deles volta na redação.</td></tr>
+        <tr><td class="n">45 min</td><td>Rascunho da redação, com os textos ainda frescos na cabeça.</td></tr>
+        <tr><td class="n">60 min</td><td>Biologia (10) e Química (10).</td></tr>
+        <tr><td class="n">35 min</td><td>Física (5) e Matemática (5). Travou em uma conta, pule e volte depois.</td></tr>
+        <tr><td class="n">15 min</td><td>Inglês (5).</td></tr>
+        <tr><td class="n">25 min</td><td>Passar a redação a limpo.</td></tr>
+        <tr><td class="n">20 min</td><td>Marcar o gabarito e revisar as que ficaram em branco. Não deixe nenhuma sem marcar.</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <p class="note">No domingo é a FCM-MG, com outra estrutura (mais Biologia e Inglês, redação valendo 40% da nota). Depois da prova de sábado, descanse em vez de estudar mais.</p>
+</section>
+
+<footer>
+  <p>Fontes: <a href="https://www.pucminas.br/processoseletivo/editais/Documents/2026/Edital%20071.2026%20-%20Medicina%20-%201-2027.pdf">Edital 071/2026</a> · <a href="https://www.pucminas.br/formas-ingresso/vestibular/Paginas/provas-e-gabaritos.aspx">provas e gabaritos oficiais da PUC Minas</a> · <a href="https://www.pucminas.br/medicina/Documents/2024/cadernoprogramasvestibular.pdf">programa das provas</a>.</p>
+  <p>As contagens por assunto foram feitas lendo as provas de 2024.1 a 2026.2; são aproximadas porque muitas questões misturam dois assuntos.</p>
+</footer>
+</div>
+
+<script>
+(function(){
+  var KEY="puc27-treino", st={};
+  try{ st=JSON.parse(localStorage.getItem(KEY)||"{}")||{}; }catch(e){ st={}; }
+  function save(){ try{ localStorage.setItem(KEY,JSON.stringify(st)); }catch(e){} }
+  var qs=[].slice.call(document.querySelectorAll(".q"));
+  function paint(q,pick){
+    var c=q.getAttribute("data-c");
+    q.classList.add("done");
+    [].forEach.call(q.querySelectorAll(".alt"),function(b){
+      var l=b.getAttribute("data-l");
+      b.classList.remove("right","wrong");
+      if(l===c) b.classList.add("right");
+      else if(l===pick) b.classList.add("wrong");
+      b.setAttribute("aria-pressed", l===pick ? "true":"false");
+    });
+    q.querySelector("details.ans").open=true;
+  }
+  function score(){
+    var n=0,ok=0;
+    qs.forEach(function(q){ var p=st[q.id]; if(p){ n++; if(p===q.getAttribute("data-c")) ok++; } });
+    document.getElementById("score").textContent=ok+" de "+n+(n? " ("+Math.round(100*ok/n)+"%)":"");
+  }
+  qs.forEach(function(q){
+    if(st[q.id]) paint(q,st[q.id]);
+    q.addEventListener("click",function(ev){
+      var b=ev.target.closest(".alt"); if(!b||q.classList.contains("done")) return;
+      st[q.id]=b.getAttribute("data-l"); save(); paint(q,st[q.id]); score();
+    });
+  });
+  document.getElementById("reset").addEventListener("click",function(){
+    st={}; save();
+    qs.forEach(function(q){ q.classList.remove("done"); q.querySelector("details.ans").open=false;
+      [].forEach.call(q.querySelectorAll(".alt"),function(b){ b.classList.remove("right","wrong"); b.removeAttribute("aria-pressed"); }); });
+    score();
+  });
+  [].forEach.call(document.querySelectorAll(".chip"),function(ch){
+    ch.addEventListener("click",function(){
+      [].forEach.call(document.querySelectorAll(".chip"),function(x){x.classList.remove("on");});
+      ch.classList.add("on"); var f=ch.getAttribute("data-f");
+      qs.forEach(function(q){ q.hidden = !(f==="all" || q.getAttribute("data-m")===f); });
+    });
+  });
+  score();
+})();
+</script>
+
+</body></html>
